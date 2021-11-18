@@ -45,7 +45,7 @@ pub enum Row<T: Rower> {
     Extended(ExtendedRow<T>)
 }
 
-impl<T> Row<T> where T: Rower  {
+impl<T> Row<T> where T: Rower {
     pub fn pick(&self, col: &str) -> Value {
         match &self {
             Row::Original(p) => p.pick(col),
@@ -56,14 +56,21 @@ impl<T> Row<T> where T: Rower  {
     pub fn original_row<'a>(&'a self) -> &'a T {
         match &self {
             Row::Original(p) => p,
-            Row::Extended(p) => &p.original
+            Row::Extended(p) => p.original.original_row()
         }
     }
     
     pub fn extend(&self) -> ExtendedRow<T> {
+        
+        //ExtendedRow{original: Box::new((*self).clone()), fields: BTreeMap::new()}
+        
         match &self {
-            Row::Original(p) => ExtendedRow{original: p.clone(), fields: BTreeMap::new()},
-            Row::Extended(e) => ExtendedRow{original: e.original.clone(), fields: BTreeMap::new()},
+            Row::Original(p) => ExtendedRow{original: Box::new(Row::Original(p.clone())), fields: BTreeMap::new()},
+            Row::Extended(e) => {
+                let mut m = e.original.extend();
+                m.fields = e.fields.clone();
+                ExtendedRow{original: Box::new(Row::Extended(m)), fields: BTreeMap::new()}
+            },
         }
     }
 }
@@ -71,7 +78,7 @@ impl<T> Row<T> where T: Rower  {
 
 #[derive(Debug,Clone)]
 pub struct ExtendedRow<T: Rower> {
-    pub original: Arc<T>,
+    pub original: Box<Row<T>>,
     pub fields: BTreeMap<String, Value>
 }
 
@@ -79,8 +86,9 @@ impl<T: Rower> Rower for ExtendedRow<T> {
     fn pick(&self, col: &str) -> Value {
         match self.fields.get(col) {
             Some(v) => v.clone(),
-            None => Value::Null
+            None => self.original.pick(col)
         }
+        
     }
 }
 
