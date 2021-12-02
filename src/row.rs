@@ -9,7 +9,7 @@ use serde::{Serialize,Deserialize};
 
 
 
-#[derive(Debug,Clone,PartialEq)]
+#[derive(Debug,Clone,PartialEq,PartialOrd)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Value {
     Text(String),
