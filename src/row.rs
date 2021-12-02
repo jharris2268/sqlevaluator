@@ -4,6 +4,9 @@ use std::collections::BTreeMap;
 use itertools::join;
 use std::sync::Arc;
 
+#[cfg(feature = "with-serde")]
+use serde::{Serialize,Deserialize};
+
 
 
 #[derive(Debug,Clone,PartialEq)]

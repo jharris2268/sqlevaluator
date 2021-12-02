@@ -3,6 +3,11 @@ use crate::{Row,Value,Rower};
 use itertools::join;
 use regex::Regex;
 
+#[cfg(feature = "with-serde")]
+use serde::{Serialize,Deserialize};
+
+
+
 #[derive(Debug)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum DataType {

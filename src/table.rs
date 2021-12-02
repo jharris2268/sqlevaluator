@@ -2,6 +2,10 @@ use crate::{Row,Value,Expr,Rower};
 
 use itertools::join;
 
+#[cfg(feature = "with-serde")]
+use serde::{Serialize,Deserialize};
+
+
 pub trait TablesPick<T: Rower> {
     fn pick<'a>(&'a self, name: &str) -> Option<&'a Vec<Row<T>>>;
 }
