@@ -35,7 +35,18 @@ impl Value {
     }
 }
 
+#[cfg(feature = "with-serde")]
+impl Eq for Value {}
 
+#[cfg(feature = "with-serde")]
+use std::cmp::Ordering;
+
+#[cfg(feature = "with-serde")]
+impl Ord for Value {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.partial_cmp(&other).unwrap_or(Ordering::Equal)
+    }
+}
 
 pub trait Rower {
     fn pick(&self, col: &str) -> Value;
