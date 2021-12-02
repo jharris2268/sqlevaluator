@@ -8,6 +8,7 @@ pub trait TablesPick<T: Rower> {
 
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Table {
     Columns{columns: Vec<Expr>, table: Box<Table>},
     Selection{selection: Box<Expr>, table: Box<Table>},
@@ -88,6 +89,7 @@ impl Table {
 
 
 #[derive(Debug,PartialEq)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Direction {
     Asc,
     Desc

@@ -7,6 +7,7 @@ use std::sync::Arc;
 
 
 #[derive(Debug,Clone,PartialEq)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Value {
     Text(String),
     Integer(i64),

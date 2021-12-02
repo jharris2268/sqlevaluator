@@ -10,3 +10,7 @@ sqlparser = { git = "https://github.com/jharris2268/sqlparser-rs.git", branch="m
 regex = "1"
 itertools = "0.10"
 
+serde = { version = "1.0.*", features = ["derive"], optional = true }
+
+[features]
+with-serde = ["serde"]

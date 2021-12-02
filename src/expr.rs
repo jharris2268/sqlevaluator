@@ -4,11 +4,13 @@ use itertools::join;
 use regex::Regex;
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum DataType {
     Null,Text,Integer,Float,Bool
 }
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Operator {
     NumericalOperator(NumericalOperator),
     LogicalOperator(LogicalOperator),
@@ -16,27 +18,32 @@ pub enum Operator {
 }
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum NumericalOperator {
     Plus, Minus, Multiply, Divide, Power, Modulo
 }
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum LogicalOperator {
     And, Or, Eq, NotEq, Gt, Ge, Lt, Le
 }
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum SpecialOperator {
     HStoreAccess, HStoreContainsKey, HStoreContainsKeyValue, HStoreContainsKeyValueReverse, GeometryOverlaps, StringConcat, RegExpMatch
 }
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum UnaryOperator {
     Not
 }
 
 
 #[derive(Debug)]
+#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Expr {
     Pick{name: String},
     Alias{expr: Box<Expr>, alias: String},
