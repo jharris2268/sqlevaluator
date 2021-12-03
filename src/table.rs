@@ -11,7 +11,7 @@ pub trait TablesPick<T: Rower> {
 }
 
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Table {
     Columns{columns: Vec<Expr>, table: Box<Table>},

@@ -8,13 +8,13 @@ use serde::{Serialize,Deserialize};
 
 
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum DataType {
     Null,Text,Integer,Float,Bool
 }
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Operator {
     NumericalOperator(NumericalOperator),
@@ -22,32 +22,32 @@ pub enum Operator {
     SpecialOperator(SpecialOperator)
 }
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum NumericalOperator {
     Plus, Minus, Multiply, Divide, Power, Modulo
 }
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum LogicalOperator {
     And, Or, Eq, NotEq, Gt, Ge, Lt, Le
 }
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum SpecialOperator {
     HStoreAccess, HStoreContainsKey, HStoreContainsKeyValue, HStoreContainsKeyValueReverse, GeometryOverlaps, StringConcat, RegExpMatch
 }
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum UnaryOperator {
     Not
 }
 
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize))]
 pub enum Expr {
     Pick{name: String},
